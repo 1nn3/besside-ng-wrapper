@@ -1,0 +1,21 @@
+#!/usr/bin/sh
+set -xe
+export LANG="C"
+export PATH=".:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+session=besside-ng-wrapper
+tmux="tmux -f tmux.conf"
+$tmux has-session -t $session
+if [ $? -eq 0 ]; then
+       echo "Session $session already exists. Attaching."
+       sleep 1
+       $tmux attach -t $session
+       exit 0;
+fi
+$tmux new-session -d -s $session
+$tmux new-window -t $session:0 
+$tmux send-keys -t $session:0 "besside-ng-wrapper start" C-m
+$tmux split-window  -h -t $session:0
+$tmux send-keys -t $session:0 'tail -f besside.log | lsvendor' C-m
+$tmux split-window  -v -t $session:0
+$tmux send-keys -t $session:0 'cat README.md' C-m
+$tmux attach-session -t $session

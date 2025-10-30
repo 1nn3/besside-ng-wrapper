@@ -1,0 +1,4 @@
+# CODE OF CONDUCT
+
+* We come here to have fun, so let's make it as much fun as possible!
+

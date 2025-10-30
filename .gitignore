@@ -1,0 +1,12 @@
+*~
+*.bak
+*.cap
+config
+*.ERR
+*.log
+*.pid
+*.swp
+*.tdy
+*.old
+oui.csv
+rockyou.txt

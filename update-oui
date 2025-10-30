@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+curl -O https://standards-oui.ieee.org/oui/oui.csv

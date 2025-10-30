@@ -1,0 +1,9 @@
+#!/usr/bin/env -S chronic flock -n ${HOME}/besside-ng-wrapper/cronjob sh
+set -xe
+export LANG="C.UTF-8"
+export PATH=".:/usr/local/bin:/usr/bin:/bin"
+USER=${USER:-$LOGNAME}
+cd ~/besside-ng-wrapper
+list-new-wifis | mail -E -s "Neue WLANs" $USER
+exit 0
+

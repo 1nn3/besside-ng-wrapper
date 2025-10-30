@@ -1,0 +1,14 @@
+#!/usr/bin/sh
+# Zeigt neue WiFis seit dem letzten Aufruf an
+set -xe
+export LC_ALL=C
+export PATH=".:/usr/local/bin:/usr/bin:/bin"
+old=new-wifis.old
+cur=$(mktemp --tmpdir=/dev/shm)
+trap "rm -f -- $cur" 0 1 2 3 15
+nmcli -g BSSID,SSID,SECURITY device wifi list --rescan yes >$cur
+sort -u $cur | grep -v -F -f $old | nl
+new=$(mktemp --tmpdir=/dev/shm)
+sort -u $cur $old | tail -n 4096 >$new
+mv $new $old
+
